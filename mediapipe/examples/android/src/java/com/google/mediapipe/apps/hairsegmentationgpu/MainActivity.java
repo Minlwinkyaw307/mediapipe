@@ -1,4 +1,4 @@
-package com.example.edgedetection;
+package com.example.hairsegmentationgpu
 
 import android.graphics.SurfaceTexture;
 import android.os.Bundle;
