@@ -6,7 +6,20 @@
 #include "mediapipe/framework/formats/image_frame.h"
 #include "mediapipe/framework/port/ret_check.h"
 #include <vector>
-//calculator Slider_
+
+/*
+node {
+calculator:"ColorSliderCalculator"
+input_stream: "Red"
+input_stream: "Green"
+input_stream: "Blue"
+output_stream:"RGB_OUT:out_array"
+
+}
+*/
+
+
+//calculator ColoSlider
 namespace mediapipe {
 
 
