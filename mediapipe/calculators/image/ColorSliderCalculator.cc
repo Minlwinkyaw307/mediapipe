@@ -31,20 +31,20 @@ public:
     //ColorSliderCalculator() : initialized_(false){}
 
     static ::mediapipe::Status GetContract (CalculatorContract *cc){
-    if (cc->Inputs().HasTag('Red')){
-      cc->Inputs().Tag('Red').Set<int>();
+    if (cc->Inputs().HasTag("Red")){
+      cc->Inputs().Tag("Red").Set<int>();
       }
 
 
-    if (cc->Inputs().HasTag('Green')){
-    cc->Inputs().Tag('Green').Set<int>();
+    if (cc->Inputs().HasTag("Green")){
+    cc->Inputs().Tag("Green").Set<int>();
     }
 
-    if (cc->Inputs().HasTag('Blue')){
-    cc->Inputs().Tag('Blue').Set<int>();
+    if (cc->Inputs().HasTag("Blue")){
+    cc->Inputs().Tag("Blue").Set<int>();
     }
-    if (cc->Outputs().HasTag('RGB_OUT')){
-    cc->Outputs().Tag('RGB_OUT).Set<std::vector>();
+    if (cc->Outputs().HasTag("RGB_OUT")){
+    cc->Outputs().Tag("RGB_OUT").Set<std::vector>();
 
     }
 
@@ -60,13 +60,13 @@ public:
     if (cc->Inputs().NumEntries() == 0) {
           return tool::StatusStop();
         }
-    int red_buffer = cc->Inputs().Tag('Red').Value().Get<int>();
-    int green_buffer = cc->Inputs().Tag('Green').Value().Get<int>();
-    int blue_buffer = cc->Inputs().Tag('Blue').Value().Get<int>();
+    int red_buffer = cc->Inputs().Tag("Red").Value().Get<int>();
+    int green_buffer = cc->Inputs().Tag("Green").Value().Get<int>();
+    int blue_buffer = cc->Inputs().Tag("Blue").Value().Get<int>();
 
 
     vector<int> rgb= {red_buffer, green_buffer,blue_buffer};
-    cc->Outputs().Tag('RGB_OUT').Add(rgb, cc->InputTimestamp());
+    cc->Outputs().Tag("RGB_OUT").Add(rgb, cc->InputTimestamp());
 
     return ::mediapipe::OkStatus();
     }
