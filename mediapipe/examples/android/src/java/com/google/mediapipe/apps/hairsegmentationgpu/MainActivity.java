@@ -1,4 +1,4 @@
-package com.example.hairsegmentationgpu
+package com.example.edgedetection;
 
 import android.graphics.SurfaceTexture;
 import android.os.Bundle;
@@ -16,12 +16,14 @@ import com.google.mediapipe.components.CameraHelper;
 import com.google.mediapipe.components.CameraXPreviewHelper;
 import com.google.mediapipe.components.ExternalTextureConverter;
 import com.google.mediapipe.components.FrameProcessor;
+import.com.google.mediapipe.components.FrameProcessorSlider;
 import com.google.mediapipe.components.PermissionHelper;
 import com.google.mediapipe.framework.AndroidAssetUtil;
 import com.google.mediapipe.glutil.EglManager;
 
 import com.google.mediapipe.framework.PacketCreator;
 
+import com.google.mediapipe.framework.AndroidPacketCreator;
 
 
 /**
@@ -33,8 +35,11 @@ public class MainActivity extends AppCompatActivity {
     private static final String BINARY_GRAPH_NAME = "hairsegmentationgpu.binarypb";
     private static final String INPUT_VIDEO_STREAM_NAME = "input_video";
     private static final String OUTPUT_VIDEO_STREAM_NAME = "output_video";
+    private static final String RED_INPUT_STREAM ="red";
+    private static final String GREEN_INPUT_STREAM ="green";
+    private static final String BLUE_INPUT_STREAM ="blue";
+
     private static final CameraHelper.CameraFacing CAMERA_FACING = CameraHelper.CameraFacing.FRONT;
-    
 
     public int red_progress = 0;
     public int blue_progress = 0;
@@ -79,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                
+
                 red_progress = i;
             }
 
@@ -142,22 +147,24 @@ public class MainActivity extends AppCompatActivity {
         // Initilize asset manager so that MediaPipe native libraries can access the app assets, e.g.,
         // binary graphs.
         AndroidAssetUtil.initializeNativeAssetManager(this);
-        packetcreator =new PacketCreator();
-        red_packet = packetcreator.createInt32(red_progress);
-        green_packet = packetcreator.createInt32(green_progress);
-        blue_packet = packetcreator.createInt32(blue_progress);
+//        packetcreator =new PacketCreator();
+//        red_packet = packetcreator.createInt32(red_progress);
+//        green_packet = packetcreator.createInt32(green_progress);
+//        blue_packet = packetcreator.createInt32(blue_progress);
         eglManager = new EglManager(null);
         processor =
-                new FrameProcessor(
+                new FrameProcessorSlider(
                         this,
                         eglManager.getNativeContext(),
                         BINARY_GRAPH_NAME,
                         INPUT_VIDEO_STREAM_NAME,
-                        OUTPUT_VIDEO_STREAM_NAME);
+                        OUTPUT_VIDEO_STREAM_NAME,
+                        );
 
         PermissionHelper.checkAndRequestCameraPermissions(this);
 
-//         processor.setInputSidePackets("rgb_reference", t);
+
+//     processor.setInputSidePackets("rgb_reference", t);
 //        processor.setInputSidePackets("green_value",green_progress);
 //        processor.setInputSidePackets("blue_value", blue_progress);
     }
@@ -212,6 +219,14 @@ public class MainActivity extends AppCompatActivity {
                                 // display size.
                                 converter.setSurfaceTextureAndAttachToGLContext(
                                         previewFrameTexture, displaySize.getWidth(), displaySize.getHeight());
+                                //send the other packets to the graph
+                                Packet red_packet = processor.getPacketCreator().createInt32(red_progress);
+                                Packet green_packet = processor.getPacketCreator().createInt32(green_progress);
+                                Packet blue_packet = processor.getPacketCreator().createInt32(blue_progress);
+                                processor.getGraph().addConsumablePacketToInputStream(RED_INPUT_STREAM, red_packet, previewFrameTexture.getTimestamp());
+                                processor.getGraph().addConsumablePacketToInputStream(GREEN_INPUT_STREAM, green_packet, previewFrameTexture.getTimeStamp());
+                                processor.getGraph().addConsumablePacketToInputStream(BLUE_INPUT_STREAM, blue_packet, previewFrameTexture.getTimeStamp());
+
                             }
 
                             @Override
@@ -233,5 +248,7 @@ public class MainActivity extends AppCompatActivity {
         cameraHelper.startCamera(this, CAMERA_FACING, /*surfaceTexture=*/ null);
     }
 }
+
+
 
 
