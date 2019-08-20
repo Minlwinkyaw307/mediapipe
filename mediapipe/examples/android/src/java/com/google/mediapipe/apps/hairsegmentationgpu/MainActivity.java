@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
 
     // Handles camera access via the {@link CameraX} Jetpack support library.
     private CameraXPreviewHelper cameraHelper;
-    
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -162,7 +162,7 @@ public class MainActivity extends AppCompatActivity {
             BINARY_GRAPH_NAME,
             INPUT_VIDEO_STREAM_NAME,
             OUTPUT_VIDEO_STREAM_NAME);
-    
+
 
     PermissionHelper.checkAndRequestCameraPermissions(this);
 
@@ -229,7 +229,9 @@ public class MainActivity extends AppCompatActivity {
                                 processor.getGraph().addConsumablePacketToInputStream(RED_INPUT_STREAM, red_packet,red_packet.getTimestamp());
                                 processor.getGraph().addConsumablePacketToInputStream(GREEN_INPUT_STREAM, green_packet,green_packet.getTimestamp());
                                 processor.getGraph().addConsumablePacketToInputStream(BLUE_INPUT_STREAM, blue_packet,blue_packet.getTimestamp());
-
+                                red_packet.release();
+                                green_packet.release();
+                                blue_packet.release();
                             }
 
                             @Override
@@ -251,7 +253,3 @@ public class MainActivity extends AppCompatActivity {
         cameraHelper.startCamera(this, CAMERA_FACING, /*surfaceTexture=*/ null);
     }
 }
-
-
-
-
