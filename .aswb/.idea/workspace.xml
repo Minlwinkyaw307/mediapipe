@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="BlazeImportSettings">
+    <option name="buildSystem" value="Bazel" />
+    <option name="locationHash" value="mediapipe-b6010df2" />
+    <option name="projectDataDirectory" value="$PROJECT_DIR$" />
+    <option name="projectName" value="mediapipe" />
+    <option name="projectViewFile" value="$PROJECT_DIR$/.bazelproject" />
+    <option name="workspaceRoot" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="c8522a3b-bbdc-4b07-a4bf-96fc46c7cdf1" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/../mediapipe/calculators/image/BUILD" beforeDir="false" afterPath="$PROJECT_DIR$/../mediapipe/calculators/image/BUILD" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../mediapipe/examples/android/src/java/com/google/mediapipe/apps/hairsegmentationgpu/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../mediapipe/examples/android/src/java/com/google/mediapipe/apps/hairsegmentationgpu/MainActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../mediapipe/examples/android/src/java/com/google/mediapipe/apps/hairsegmentationgpu/res/layout/activity_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../mediapipe/examples/android/src/java/com/google/mediapipe/apps/hairsegmentationgpu/res/layout/activity_main.xml" afterDir="false" />
+    </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="14" />
+    <option name="y" value="26" />
+    <option name="width" value="1366" />
+    <option name="height" value="703" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectView">
+    <navigator currentView="ProjectPane" proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="PackagesPane" />
+      <pane id="ProjectPane" />
+      <pane id="Scope" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="android.sdk.path" value="$USER_HOME$/Android/Sdk" />
+    <property name="settings.editor.selected.configurable" value="AndroidSdkUpdater" />
+    <property name="show.migrate.to.gradle.popup" value="false" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="BlazeCommandRunConfigurationType" factoryName="Bazel Command">
+      <blaze-settings blaze-command="mobile-install" handler-id="BlazeCommandGenericRunConfigurationHandlerProvider">
+        <blaze-target>//mediapipe/examples/android/src/java/com/google/mediapipe/apps/hairsegmentationgpu</blaze-target>
+        <blaze-user-flag>-c</blaze-user-flag>
+        <blaze-user-flag>opt</blaze-user-flag>
+        <blaze-user-flag>--config=android_arm64</blaze-user-flag>
+      </blaze-settings>
+      <method v="2">
+        <option name="Blaze.BeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="c8522a3b-bbdc-4b07-a4bf-96fc46c7cdf1" name="Default Changelist" comment="" />
+      <created>1566322378204</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1566322378204</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-1" y="-4" width="1368" height="739" extended-state="6" />
+    <layout>
+      <window_info id="Captures" order="0" weight="0.25" />
+      <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.33684212" />
+      <window_info id="Structure" order="2" side_tool="true" />
+      <window_info id="Image Layers" order="3" />
+      <window_info id="Designer" order="4" />
+      <window_info id="Resources Explorer" order="5" weight="0.32932332" />
+      <window_info id="Capture Tool" order="6" />
+      <window_info id="Favorites" order="7" side_tool="true" />
+      <window_info anchor="bottom" id="Run" order="0" />
+      <window_info anchor="bottom" id="TODO" order="1" />
+      <window_info anchor="bottom" id="Blaze Problems" order="2" sideWeight="0.49774435" weight="0.3296355" />
+      <window_info anchor="bottom" id="Debug" order="3" />
+      <window_info anchor="bottom" id="Blaze Console" order="4" sideWeight="0.50075185" side_tool="true" visible="true" weight="0.3296355" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="5" sideWeight="0.49924812" visible="true" weight="0.3296355" />
+      <window_info anchor="bottom" id="Event Log" order="6" side_tool="true" />
+      <window_info anchor="bottom" id="Flutter Performance" order="7" side_tool="true" />
+      <window_info anchor="bottom" id="Version Control" order="8" />
+      <window_info anchor="right" id="Capture Analysis" order="0" />
+      <window_info anchor="right" id="Theme Preview" order="1" />
+      <window_info anchor="right" id="Flutter Inspector" order="2" />
+      <window_info anchor="right" id="Flutter Outline" order="3" />
+      <window_info anchor="right" id="Quick Notes" order="4" />
+      <window_info anchor="right" id="Palette&#9;" order="5" />
+    </layout>
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ProjectJDKs.UI">
+        <settings>
+          <last-edited>1.8</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
+  </component>
+</project>

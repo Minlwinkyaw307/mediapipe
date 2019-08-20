@@ -402,6 +402,16 @@ cc_library(
     ],
     alwayslink = 1,
 )
+cc_library(
+    name =  "ColorSliderCalculator",
+    srcs = ["ColorSliderCalculator.cc"],
+    visibility = ["//visibility:public"],
+    deps = ["//mediapipe/framework:calculator_framework",
+            "//mediapipe/framework/port:status",
+            "//mediapipe/framework/port:ret_check",],
+
+            alwayslink = 1,)
+
 
 cc_library(
     name = "recolor_calculator",
