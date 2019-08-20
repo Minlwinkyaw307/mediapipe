@@ -4,7 +4,11 @@
 
 # Images on GPU coming into and out of the graph.
 input_stream: "input_video"
+input_stream: "red"
+input_stream: "green"
+input_stream: "blue"
 output_stream: "output_video"
+
 
 # Throttles the images flowing downstream for flow control. It passes through
 # the very first incoming image unaltered, and waits for
@@ -145,9 +149,9 @@ node {
 }
 node {
 calculator:"ColorSliderCalculator"
-input_stream: "Red"
-input_stream: "Green"
-input_stream: "Blue"
+input_stream: "Red:red"
+input_stream: "Green:green"
+input_stream: "Blue:blue"
 output_stream:"RGB_OUT:out_array"
 
 }
