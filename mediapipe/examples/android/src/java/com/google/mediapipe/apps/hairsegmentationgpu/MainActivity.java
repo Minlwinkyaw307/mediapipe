@@ -16,7 +16,6 @@ import com.google.mediapipe.components.CameraHelper;
 import com.google.mediapipe.components.CameraXPreviewHelper;
 import com.google.mediapipe.components.ExternalTextureConverter;
 import com.google.mediapipe.components.FrameProcessor;
-import.com.google.mediapipe.components.FrameProcessorSlider;
 import com.google.mediapipe.components.PermissionHelper;
 import com.google.mediapipe.framework.AndroidAssetUtil;
 import com.google.mediapipe.glutil.EglManager;
