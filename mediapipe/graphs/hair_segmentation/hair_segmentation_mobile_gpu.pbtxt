@@ -24,7 +24,7 @@ output_stream: "output_video"
 # TfLiteConverterCalculator or TfLiteInferenceCalculator is still busy
 # processing previous inputs.
 node {
-  calculator: "RealTimeFlowLimiterCalculator"
+  calculator: "FlowLimiterCalculator"
   input_stream: "input_video"
   input_stream: "FINISHED:hair_mask"
   input_stream_info: {
@@ -147,20 +147,29 @@ node {
     }
   }
 }
+
 node {
 calculator:"ColorSliderCalculator"
-input_stream: "Red:red"
-input_stream: "Green:green"
-input_stream: "Blue:blue"
+input_stream: "red"
+input_stream: "green"
+input_stream: "blue"
 output_stream:"RGB_OUT:out_array"
-
 }
+
+ node {
+   calculator: "PacketClonerCalculator"
+   input_stream: "out_array"
+   input_stream: "throttled_input_video"
+   output_stream:"out_array_2"
+
+ }
+
 # Colors the hair segmentation with the color specified in the option.
 node {
   calculator: "RecolorCalculator"
   input_stream: "IMAGE_GPU:throttled_input_video"
   input_stream: "MASK_GPU:hair_mask"
-  input_stream:"RGB_ARRAY:out_array"
+  input_stream:"RGB_ARRAY:out_array_2"
   output_stream: "IMAGE_GPU:output_video"
   node_options: {
     [type.googleapis.com/mediapipe.RecolorCalculatorOptions] {

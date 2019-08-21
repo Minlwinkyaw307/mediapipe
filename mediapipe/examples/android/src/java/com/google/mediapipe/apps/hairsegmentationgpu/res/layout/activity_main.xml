@@ -28,30 +28,16 @@
     android:layout_below="@+id/preview_display_layout">
     <SeekBar
         android:id="@+id/red_seekbar"
+        android:progress="0"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:max="255" />
 
-    <!--<TextView-->
-        <!--android:id="@+id/textview1"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_above="@+id/red_seekbar"-->
-
-
-        <!--android:layout_marginStart="89dp"-->
-        <!--android:layout_marginLeft="89dp"-->
-        <!--android:layout_marginTop="5dp"-->
-        <!--android:layout_marginBottom="6dp"-->
-        <!--android:text="Red"-->
-        <!--android:textSize="20sp"-->
-        <!--android:textStyle="bold"-->
-        <!--android:visibility="visible" />-->
-
 
     <SeekBar
         android:id="@+id/green_seekbar"
+        android:progress="0"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -60,6 +46,7 @@
 
     <SeekBar
         android:id="@+id/blue_seekbar"
+        android:progress="255"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"

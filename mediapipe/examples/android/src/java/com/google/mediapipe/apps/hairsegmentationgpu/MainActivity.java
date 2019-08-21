@@ -15,6 +15,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.mediapipe.components.CameraHelper;
 import com.google.mediapipe.components.CameraXPreviewHelper;
 import com.google.mediapipe.components.ExternalTextureConverter;
+
+import com.google.mediapipe.components.TextureFrameConsumer;
+import com.google.mediapipe.framework.TextureFrame;
+
 import com.google.mediapipe.components.FrameProcessor;
 import com.google.mediapipe.components.PermissionHelper;
 import com.google.mediapipe.framework.AndroidAssetUtil;
@@ -40,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String BLUE_INPUT_STREAM ="blue";
 
     private static final CameraHelper.CameraFacing CAMERA_FACING = CameraHelper.CameraFacing.FRONT;
+    private static final boolean FLIP_FRAMES_VERTICALLY = true;
 
     protected int red_progress = 0;
     protected int blue_progress = 0;
@@ -73,6 +78,8 @@ public class MainActivity extends AppCompatActivity {
     // Handles camera access via the {@link CameraX} Jetpack support library.
     private CameraXPreviewHelper cameraHelper;
 
+  private RGBHandler rgbHandler;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,7 +88,6 @@ public class MainActivity extends AppCompatActivity {
         red_seekBar = (SeekBar) findViewById(R.id.red_seekbar);
         blue_seekBar = (SeekBar) findViewById(R.id.green_seekbar);
         green_seekBar = (SeekBar) findViewById(R.id.blue_seekbar);
-
 
         red_seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 
@@ -155,7 +161,7 @@ public class MainActivity extends AppCompatActivity {
 //        green_packet = packetcreator.createInt32(green_progress);
 //        blue_packet = packetcreator.createInt32(blue_progress);
          eglManager = new EglManager(null);
-    	processor =
+        processor =
         new FrameProcessor(
             this,
             eglManager.getNativeContext(),
@@ -164,6 +170,10 @@ public class MainActivity extends AppCompatActivity {
             OUTPUT_VIDEO_STREAM_NAME);
 
 
+        rgbHandler = new RGBHandler();
+        processor.setConsumer(rgbHandler);
+
+    processor.getVideoSurfaceOutput().setFlipY(FLIP_FRAMES_VERTICALLY);
     PermissionHelper.checkAndRequestCameraPermissions(this);
 
 
@@ -176,6 +186,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         converter = new ExternalTextureConverter(eglManager.getContext());
+        converter.setFlipY(FLIP_FRAMES_VERTICALLY);
         converter.setConsumer(processor);
         if (PermissionHelper.cameraPermissionsGranted(this)) {
             startCamera();
@@ -222,16 +233,6 @@ public class MainActivity extends AppCompatActivity {
                                 // display size.
                                 converter.setSurfaceTextureAndAttachToGLContext(
                                         previewFrameTexture, displaySize.getWidth(), displaySize.getHeight());
-                                //send the other packets to the graph
-                                red_packet = processor.getPacketCreator().createInt32(red_progress);
-                                green_packet = processor.getPacketCreator().createInt32(green_progress);
-                                blue_packet = processor.getPacketCreator().createInt32(blue_progress);
-                                processor.getGraph().addConsumablePacketToInputStream(RED_INPUT_STREAM, red_packet,red_packet.getTimestamp());
-                                processor.getGraph().addConsumablePacketToInputStream(GREEN_INPUT_STREAM, green_packet,green_packet.getTimestamp());
-                                processor.getGraph().addConsumablePacketToInputStream(BLUE_INPUT_STREAM, blue_packet,blue_packet.getTimestamp());
-                                red_packet.release();
-                                green_packet.release();
-                                blue_packet.release();
                             }
 
                             @Override
@@ -252,4 +253,35 @@ public class MainActivity extends AppCompatActivity {
                 });
         cameraHelper.startCamera(this, CAMERA_FACING, /*surfaceTexture=*/ null);
     }
+
+
+
+  private class RGBHandler implements TextureFrameConsumer {
+    @Override
+    public void onNewFrame(TextureFrame frame) {
+      frame.release();
+
+      //send the other packets to the graph
+      red_packet = processor.getPacketCreator().createInt32(red_progress);
+      green_packet = processor.getPacketCreator().createInt32(green_progress);
+      blue_packet = processor.getPacketCreator().createInt32(blue_progress);
+      processor.getGraph().addConsumablePacketToInputStream(RED_INPUT_STREAM,
+                                                            red_packet, red_packet.getTimestamp());
+      processor.getGraph().addConsumablePacketToInputStream(GREEN_INPUT_STREAM,
+                                                            green_packet, green_packet.getTimestamp());
+      processor.getGraph().addConsumablePacketToInputStream(BLUE_INPUT_STREAM,
+                                                            blue_packet, blue_packet.getTimestamp());
+      red_packet.release();
+      green_packet.release();
+      blue_packet.release();
+
+
+    }
+
+  }
+
+
+
+
+
 }
