@@ -128,7 +128,7 @@ REGISTER_CALCULATOR(RecolorCalculator);
     cc->Inputs().Tag("MASK").Set<ImageFrame>();
   }
   if (cc->Inputs().HasTag("RGB_ARRAY")) {
-    cc->Inputs().Tag("RGB_ARRAY").Set<std::vector<int>>();
+    cc->Inputs().Tag("RGB_ARRAY").Set<std::array<int,3>>();
   }
 
 #if defined(__ANDROID__)
@@ -207,16 +207,14 @@ REGISTER_CALCULATOR(RecolorCalculator);
   const Packet& rgb_packet = cc->Inputs().Tag("RGB_ARRAY").Value();
   const auto& input_buffer = input_packet.Get<mediapipe::GpuBuffer>();
   const auto& mask_buffer = mask_packet.Get<mediapipe::GpuBuffer>();
-  const auto& rgb_buffer = rgb_packet.Get<std::vector<int>>();
-
+  const auto& rgb_buffer = rgb_packet.Get<std::array<int,3>>();
   my_color.push_back(rgb_buffer[0] / 255.0);
   my_color.push_back(rgb_buffer[1] / 255.0);
   my_color.push_back(rgb_buffer[2] / 255.0);
 
   auto img_tex = gpu_helper_.CreateSourceTexture(input_buffer);
   auto mask_tex = gpu_helper_.CreateSourceTexture(mask_buffer);
-  auto dst_tex =
-      gpu_helper_.CreateDestinationTexture(img_tex.width(), img_tex.height());
+  auto dst_tex = gpu_helper_.CreateDestinationTexture(img_tex.width(), img_tex.height());
 
   // Run recolor shader on GPU.
   {
