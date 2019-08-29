@@ -171,7 +171,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         rgbHandler = new RGBHandler();
-        processor.setConsumer(rgbHandler);
+        processor.setOnWillAddFrameListener(rgbHandler);
 
     processor.getVideoSurfaceOutput().setFlipY(FLIP_FRAMES_VERTICALLY);
     PermissionHelper.checkAndRequestCameraPermissions(this);
@@ -256,29 +256,28 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-  private class RGBHandler implements TextureFrameConsumer {
-    @Override
-    public void onNewFrame(TextureFrame frame) {
-      frame.release();
+    private class RGBHandler implements FrameProcessor.OnWillAddFrameListener{
+        @Override
+        public void onWillAddFrame(long timestamp){
+          red_packet = processor.getPacketCreator().createInt32(red_progress);
+          green_packet = processor.getPacketCreator().createInt32(green_progress);
+          blue_packet = processor.getPacketCreator().createInt32(blue_progress);
+          processor.getGraph().addConsumablePacketToInputStream(RED_INPUT_STREAM,
+                                                                red_packet,  timestamp);
+          processor.getGraph().addConsumablePacketToInputStream(GREEN_INPUT_STREAM,
+                                                                green_packet, timestamp);
+          processor.getGraph().addConsumablePacketToInputStream(BLUE_INPUT_STREAM,
+                                                                blue_packet,  timestamp);
+          red_packet.release();
+          green_packet.release();
+          blue_packet.release();
 
-      //send the other packets to the graph
-      red_packet = processor.getPacketCreator().createInt32(red_progress);
-      green_packet = processor.getPacketCreator().createInt32(green_progress);
-      blue_packet = processor.getPacketCreator().createInt32(blue_progress);
-      processor.getGraph().addConsumablePacketToInputStream(RED_INPUT_STREAM,
-                                                            red_packet, red_packet.getTimestamp());
-      processor.getGraph().addConsumablePacketToInputStream(GREEN_INPUT_STREAM,
-                                                            green_packet, green_packet.getTimestamp());
-      processor.getGraph().addConsumablePacketToInputStream(BLUE_INPUT_STREAM,
-                                                            blue_packet, blue_packet.getTimestamp());
-      red_packet.release();
-      green_packet.release();
-      blue_packet.release();
+        }
 
 
-    }
 
-  }
+
+      }
 
 
 
